@@ -24,6 +24,7 @@ class Tile:
         self.type = tile_type
         self.row = row
         self.col = col
+        self.entity = None
 
     # A method to get the color of the tile
     def get_color(self):
@@ -58,4 +59,4 @@ class Tile:
     # A static method to generate a random tile type
     @staticmethod
     def random_type():
-        return random.choice([EMPTY])
+        return random.choice([EMPTY, DIRT, EMPTY, EMPTY])

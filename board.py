@@ -26,7 +26,9 @@ for row in range(ROWS):
 
 
 # A function to draw the board and entities on the screen with camera offset and zoom level
-def draw_board(camera, zoom_level, sprites):
+def draw_board(camera, zoom_level, sprites, particles):
+
+    # Draw tiles
     for row in range(ROWS):
         for col in range(COLS):
             # Get the tile object at the current position
@@ -43,6 +45,17 @@ def draw_board(camera, zoom_level, sprites):
             if image:
                 image_size = (int(TILE_SIZE * zoom_level), int(TILE_SIZE * zoom_level))
                 screen.blit(pygame.transform.scale(image, image_size), (x, y))
+
+    # Draw particles below entities
+    for particle in particles:
+        # Apply zoom level to particle sprite
+        scaled_rect = pygame.Rect(
+            int(particle.rect.x * zoom_level) - camera.x,
+            int(particle.rect.y * zoom_level) - camera.y,
+            int(particle.rect.width * zoom_level),
+            int(particle.rect.height * zoom_level)
+        )
+        screen.blit(pygame.transform.scale(particle.image, scaled_rect.size), scaled_rect)
 
     # Draw entities with zoom level
     for sprite in sprites:
